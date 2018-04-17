@@ -26,19 +26,20 @@
         AFRAME.registerPrimitive('a-bond', {
             defaultComponents: {
                 geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
-                material: {color: 'gray'},
-                rotation: {x: '0', y: '0', z: '0'}
+                material: {color: 'gray'}
             },
 
             mappings: {
+                taken: 'shellatoms.taken',
                 color: 'material.color',
                 opacity: 'material.opacity'
             }
         });
     </script>
+
     <a-scene>
         <a-atom type="C" position="0 0 -4" color="gray"></a-atom>
-        <a-bond shellatoms position="-1 0 -3"></a-bond>
+        <a-bond taken="" rotation="0 0 0" position="-1 0 -3"></a-bond>
 
         <a-camera>
             <a-entity cursor 

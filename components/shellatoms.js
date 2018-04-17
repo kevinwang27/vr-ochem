@@ -1,5 +1,9 @@
 AFRAME.registerComponent('shellatoms', {
-    init: function () {
+    schema: {
+        taken: {type: 'array', default: []}
+    },
+
+    update: function () {
         var data = this.data;
         var el = this.el;
         var scene = document.querySelector('a-scene');
@@ -8,11 +12,14 @@ AFRAME.registerComponent('shellatoms', {
         var bondRot = el.getAttribute('rotation');
         var bondLength = el.getAttribute('geometry').height;
 
-        var atomPosX = [(bondPos.x + bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0)), (bondPos.x - bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0))];
-        var atomPosY = [(bondPos.y + bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0)), (bondPos.y - bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0))];
-        var atomPosZ = [(bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0)), (bondPos.z - bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0))];
+        var atomPosX = [(bondPos.x - bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0)), (bondPos.x + bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0))];
+        var atomPosY = [(bondPos.y - bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0)), (bondPos.y + bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0))];
+        var atomPosZ = [(bondPos.z - bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0)), (bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0))];
 
         for (var i = 0; i < atomPosX.length; i++) {
+            if (data.taken.includes('' + i)) {
+                continue;
+            }
             var newEntity = document.createElement('a-atom');
             newEntity.setAttribute('position', {x: atomPosX[i], y: atomPosY[i], z: atomPosZ[i]});
             newEntity.setAttribute('opacity', '0.3');
