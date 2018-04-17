@@ -2,12 +2,17 @@
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="./components/include-label.js"></script>
   </head>
   <body>
     <a-scene>
         <a-camera>
-          <a-cursor></a-cursor>
+          <a-entity cursor raycaster="objects: .shell-obj"></a-entity>
         </a-camera>
     </a-scene>
+
+    <script>
+
+    </script>
   </body>
 </html>
