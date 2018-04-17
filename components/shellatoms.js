@@ -1,10 +1,5 @@
 AFRAME.registerComponent('shellatoms', {
-    schema: {
-        taken: {type: 'array', default: []}
-    },
-
-    update: function () {
-        var data = this.data;
+    init: function () {
         var el = this.el;
         var scene = document.querySelector('a-scene');
 
@@ -17,15 +12,14 @@ AFRAME.registerComponent('shellatoms', {
         var atomPosZ = [(bondPos.z - bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0)), (bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0))];
 
         for (var i = 0; i < atomPosX.length; i++) {
-            if (data.taken.includes('' + i)) {
-                continue;
-            }
             var newEntity = document.createElement('a-atom');
             newEntity.setAttribute('position', {x: atomPosX[i], y: atomPosY[i], z: atomPosZ[i]});
             newEntity.setAttribute('opacity', '0.3');
             newEntity.setAttribute('class', 'shell-obj');
-            newEntity.setAttribute('event-set__enter', {_event: 'mouseenter', color: '#00FF00'});
-            newEntity.setAttribute('event-set__leave', {_event: 'mouseleave', color: ''});
+            newEntity.setAttribute('color', 'green');
+            newEntity.setAttribute('visible', 'false');
+            newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: 'true'});
+            newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: 'false'});
             scene.appendChild(newEntity);
         }
     }

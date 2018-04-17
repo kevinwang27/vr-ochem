@@ -1,15 +1,10 @@
 AFRAME.registerComponent('shellbonds', {
-    schema: {
-        taken: {type: 'array', default: []}
-    },
-
-    update: function () {
-        var data = this.data;
+    init: function () {
         var el = this.el;
+        var scene = document.querySelector('a-scene');
 
         var atomPos = el.getAttribute('position');
 
-        
         var bondPosX = [];
         var bondPosY = [];
         var bondPosZ = [];
