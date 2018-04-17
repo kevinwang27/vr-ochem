@@ -1,6 +1,6 @@
 AFRAME.registerComponent('label', {
     schema: {
-        text: {type: 'string', default: 'C'}
+        text: {type: 'string', default: ''}
     },
 
     init: function () {
@@ -9,9 +9,7 @@ AFRAME.registerComponent('label', {
 
         var scene = document.querySelector('a-scene');
 
-        var textEntity = document.createElement('a-text');
-        console.log(data.text);
-        
+        var textEntity = document.createElement('a-text');        
         textEntity.setAttribute('value', data.text);
         textEntity.setAttribute('position', '0 0 ' + el.getAttribute('geometry').radius);
         textEntity.setAttribute('color', '#000');
