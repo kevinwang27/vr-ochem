@@ -4,28 +4,21 @@ AFRAME.registerComponent('shellatoms', {
         var el = this.el;
         var scene = document.querySelector('a-scene');
 
-        function calcAtomCoord(direction) {
-            var bondPos = el.getAttribute('position');
-            var bondRot = el.getAttribute('rotation');
-            var bondLength = el.getAttribute('geometry').height;
-            
-            if (direction == 1) {
-                return bondPos.x + bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0);
-            } else if (direction == 2) {
-                return bondPos.y + bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0);
-            } else {
-                return bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0);
-            }
-        }
+        var bondPos = el.getAttribute('position');
+        var bondRot = el.getAttribute('rotation');
+        var bondLength = el.getAttribute('geometry').height;
 
-        var atomPosX = [calcAtomCoord(1)];
-        var atomPosY = [calcAtomCoord(2)];
-        var atomPosZ = [calcAtomCoord(3)];
+        var atomPosX = [(bondPos.x + bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0)), (bondPos.x - bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0))];
+        var atomPosY = [(bondPos.y + bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0)), (bondPos.y - bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0))];
+        var atomPosZ = [(bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0)), (bondPos.z - bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0))];
 
         for (var i = 0; i < atomPosX.length; i++) {
             var newEntity = document.createElement('a-atom');
             newEntity.setAttribute('position', {x: atomPosX[i], y: atomPosY[i], z: atomPosZ[i]});
             newEntity.setAttribute('opacity', '0.3');
+            newEntity.setAttribute('class', 'shell-obj');
+            newEntity.setAttribute('event-set__enter', {_event: 'mouseenter', color: '#00FF00'});
+            newEntity.setAttribute('event-set__leave', {_event: 'mouseleave', color: ''});
             scene.appendChild(newEntity);
         }
     }

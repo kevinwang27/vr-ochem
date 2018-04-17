@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="./components/label.js"></script>
     <script src="./components/shellbonds.js"></script>
     <script src="./components/shellatoms.js"></script>
@@ -11,7 +12,7 @@
         AFRAME.registerPrimitive('a-atom', {
             defaultComponents: {
                 geometry: {primitive: 'sphere', radius: '0.3'},
-                material: {color: 'gray'}
+                material: {color: ''}
             },
 
             mappings: {
@@ -36,7 +37,7 @@
         });
     </script>
     <a-scene>
-        <a-atom type="C" position="0 0 -4"></a-atom>
+        <a-atom type="C" position="0 0 -4" color="gray"></a-atom>
         <a-bond shellatoms position="-1 0 -3"></a-bond>
 
         <a-camera>
