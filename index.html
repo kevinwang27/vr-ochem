@@ -8,17 +8,18 @@
     <script>
         AFRAME.registerPrimitive('a-atom', {
             defaultComponents: {
-                geometry: {primitive: 'sphere', radius: '0.3'},
-                label: {}
+                geometry: {primitive: 'sphere', radius: '0.3'}
             },
 
             mappings: {
+                type: 'label.text',
                 color: 'material.color'
             }
         });
     </script>
     <a-scene>
-        <a-atom position="0 0 -4" color="blue"></a-atom>
+        <a-atom type="B" position="0 0 -4" color="blue"></a-atom>
+
         <a-camera>
           <a-entity cursor 
             geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
