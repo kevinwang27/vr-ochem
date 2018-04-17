@@ -3,7 +3,8 @@
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="./components/label.js"></script>
-    <script src="./components/shellobjs.js"></script>
+    <script src="./components/shellbonds.js"></script>
+    <script src="./components/shellatoms.js"></script>
   </head>
   <body>
     <script>
@@ -24,7 +25,8 @@
         AFRAME.registerPrimitive('a-bond', {
             defaultComponents: {
                 geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
-                material: {color: 'gray'}
+                material: {color: 'gray'},
+                rotation: {x: '0', y: '0', z: '0'}
             },
 
             mappings: {
