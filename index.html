@@ -2,11 +2,47 @@
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="./components/label.js"></script>
   </head>
   <body>
+    <script>
+        AFRAME.registerPrimitive('a-atom', {
+            defaultComponents: {
+                geometry: {primitive: 'sphere', radius: '0.3'},
+                material: {color: 'gray'}
+            },
+
+            mappings: {
+                type: 'label.text',
+                radius: 'geometry.radius',
+                color: 'material.color',
+                opacity: 'material.opacity'
+            }
+        });
+
+        AFRAME.registerPrimitive('a-bond', {
+            defaultComponents: {
+                geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
+                material: {color: 'gray'}
+            },
+
+            mappings: {
+                color: 'material.color',
+                opacity: 'material.opacity'
+            }
+        });
+    </script>
     <a-scene>
+        <a-atom type="C" position="0 0 -4"></a-atom>
+
         <a-camera>
-          <a-cursor></a-cursor>
+            <a-entity cursor 
+                geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+                position="0 0 -1"
+                material="color: black"
+                raycaster="objects: .shell-obj"></a-entity>
+            <a-atom position="0 0 -4" opacity="0.6"></a-atom>
+            <a-bond position="0 0 -4" opacity="0.6"></a-bond>
         </a-camera>
     </a-scene>
   </body>
