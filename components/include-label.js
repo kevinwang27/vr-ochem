@@ -1,4 +1,4 @@
-AFRAME.registerComponent('include-label', {
+AFRAME.registerComponent('includelabel', {
     schema: {
         text: {type: 'string', default: 'C'}
     },

@@ -2,17 +2,26 @@
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="./components/include-label.js"></script>
   </head>
   <body>
     <a-scene>
+        <a-atom></a-atom>
         <a-camera>
-          <a-entity cursor raycaster="objects: .shell-obj"></a-entity>
+          <a-entity cursor 
+            geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
+            position="0 0 -1"
+            material="color: black"
+            raycaster="objects: .shell-obj"></a-entity>
         </a-camera>
     </a-scene>
 
     <script>
-
+        AFRAME.registerComponent('a-atom', {
+            defaultComponents: {
+                geometry: {primitive: 'sphere', radius: '0.3'},
+                
+            }
+        });
     </script>
   </body>
 </html>
