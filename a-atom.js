@@ -7,6 +7,6 @@ AFRAME.registerPrimitive('a-atom', {
     mappings: {
         radius: 'sphere.radius',
         color: 'sphere.color',
-        text: 'includ-label.text'
+        text: 'include-label.text'
     }
 }));
