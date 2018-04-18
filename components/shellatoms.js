@@ -23,14 +23,23 @@ AFRAME.registerComponent('shellatoms', {
             scene.appendChild(newEntity);
 
             newEntity.addEventListener('click', function () {
-                var placedAtom = document.createElement('a-atom');
-                placedAtom.setAttribute('position', newEntity.getAttribute('position'));
-                placedAtom.setAttribute('class', 'placed');
-                placedAtom.setAttribute('color', 'gray');
-                placedAtom.setAttribute('type', 'C');
-                
-                scene.removeChild(newEntity);
-                scene.appendChild(placedAtom);
+                if (newEntity.getAttribute('class') === 'shell-obj') {
+                    newEntity.setAttribute('opacity', '1.0');
+                    newEntity.setAttribute('color', 'gray');
+                    newEntity.setAttribute('class', 'placed');
+                    newEntity.setAttribute('type', 'C');
+                    newEntity.setAttribute('visible', 'true');
+                    newEntity.removeAttribute('event-set__makevisible');
+                    newEntity.removeAttribute('event-set__makeinvisible');
+                } else {
+                    newEntity.removeAttribute('type');
+                    newEntity.setAttribute('opacity', '0.3');
+                    newEntity.setAttribute('class', 'shell-obj');
+                    newEntity.setAttribute('color', 'green');
+                    newEntity.setAttribute('visible', 'false');
+                    newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: 'true'});
+                    newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: 'false'});
+                }
             });
         }
     }
