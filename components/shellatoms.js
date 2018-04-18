@@ -5,41 +5,44 @@ AFRAME.registerComponent('shellatoms', {
 
         var bondPos = el.getAttribute('position');
         var bondRot = el.getAttribute('rotation');
-        var bondLength = el.getAttribute('geometry').height;
+        var bondHalfLen = el.getAttribute('geometry').height / 2;
 
-        var atomPosX = [(bondPos.x - bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0)), (bondPos.x + bondLength / 2 * Math.sin(bondRot.x * Math.PI / 180.0))];
-        var atomPosY = [(bondPos.y - bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0)), (bondPos.y + bondLength / 2 * Math.cos(bondRot.y * Math.PI / 180.0))];
-        var atomPosZ = [(bondPos.z - bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0)), (bondPos.z + bondLength / 2 * Math.sin(bondRot.z * Math.PI / 180.0))];
+        function toRad(deg) {
+            return deg * Math.PI / 180.0;
+        }
+
+        var atomRad = 0.3;
+        var atomPosX = [bondPos.x, bondPos.x];
+        var atomPosY = [bondPos.y + bondHalfLen + atomRad / 2, bondPos.y - bondHalfLen - atomRad / 2];
+        var atomPosZ = [bondPos.z, bondPos.z];
 
         for (var i = 0; i < atomPosX.length; i++) {
             let newEntity = document.createElement('a-atom');
             newEntity.setAttribute('position', {x: atomPosX[i], y: atomPosY[i], z: atomPosZ[i]});
+            newEntity.setAttribute('radius', atomRad);
             newEntity.setAttribute('opacity', '0.3');
-            newEntity.setAttribute('class', 'shell-obj');
+            newEntity.setAttribute('class', 'shell-atom');
             newEntity.setAttribute('color', 'green');
             newEntity.setAttribute('visible', false);
+            newEntity.setAttribute('aabb-collider', {objects: '.placedatom'});
             newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
             newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
             scene.appendChild(newEntity);
 
             newEntity.addEventListener('click', function () {
-                if (newEntity.getAttribute('class') === 'shell-obj') {
-                    newEntity.setAttribute('opacity', '1.0');
-                    newEntity.setAttribute('color', 'gray');
-                    newEntity.setAttribute('class', 'placed');
-                    newEntity.setAttribute('label', {text: 'C'});
-                    newEntity.setAttribute('visible', true);
-                    newEntity.removeAttribute('event-set__makevisible');
-                    newEntity.removeAttribute('event-set__makeinvisible');
-                } else {
-                    newEntity.removeAttribute('label');
-                    newEntity.setAttribute('opacity', '0.3');
-                    newEntity.setAttribute('class', 'shell-obj');
-                    newEntity.setAttribute('color', 'green');
-                    newEntity.setAttribute('visible', false);
-                    newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
-                    newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
-                }
+                var atom = document.createElement('a-atom');
+                atom.setAttribute('position', newEntity.getAttribute('position'));
+                atom.setAttribute('label', {text: 'C'});
+                atom.setAttribute('color', 'gray');
+                atom.setAttribute('class', 'placedatom');
+                atom.setAttribute('radius', atomRad);
+
+                scene.removeChild(newEntity);
+                scene.appendChild(atom);
+            });
+
+            newEntity.addEventListener('hitclosest', function () {
+                scene.removeChild(newEntity);
             });
         }
     }

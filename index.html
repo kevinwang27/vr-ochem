@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-aabb-collider-component/dist/aframe-aabb-collider-component.min.js"></script>
     <script src="./components/label.js"></script>
     <script src="./components/shellbonds.js"></script>
     <script src="./components/shellatoms.js"></script>
@@ -25,7 +26,7 @@
         AFRAME.registerPrimitive('a-bond', {
             defaultComponents: {
                 geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
-                material: {color: 'gray'}
+                material: {color: ''}
             },
 
             mappings: {
@@ -36,14 +37,15 @@
     </script>
 
     <a-scene>
-        <a-bond shellatoms rotation="0 0 0" position="0 0 -3"></a-bond>
+        <a-bond shellatoms class="placedbond" rotation="0 0 0" position="0 0 -3" color="gray"></a-bond>
+        <a-atom shellbonds class="placedatom" position="-3 0 -2" color="gray" label="text: C"></a-atom>
 
         <a-camera>
             <a-entity cursor 
                 geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
                 position="0 0 -1"
                 material="color: black"
-                raycaster="objects: .shell-obj, .placed"></a-entity>
+                raycaster="objects: .shell-atom, .shell-bond"></a-entity>
         </a-camera>
     </a-scene>
   </body>
