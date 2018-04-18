@@ -16,7 +16,6 @@
             },
 
             mappings: {
-                type: 'label.text',
                 radius: 'geometry.radius',
                 color: 'material.color',
                 opacity: 'material.opacity'
@@ -34,6 +33,7 @@
                 opacity: 'material.opacity'
             }
         });
+        // activate cursor raycaster on menu click
     </script>
 
     <a-scene>
@@ -44,7 +44,7 @@
                 geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
                 position="0 0 -1"
                 material="color: black"
-                raycaster="objects: .shell-obj"></a-entity>
+                raycaster="objects: .shell-obj, .placed"></a-entity>
         </a-camera>
     </a-scene>
   </body>
