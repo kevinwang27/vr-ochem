@@ -4,7 +4,8 @@ AFRAME.registerComponent('shellbonds', {
         var scene = document.querySelector('a-scene');
 
         var atomPos = el.getAttribute('position');
-        var atomFracRad = el.getAttribute('geometry').radius * 3 / 4;
+        var atomRad = el.getAttribute('geometry').radius;
+        var atomFracRad = atomRad * 3 / 4;
         var bondHalfLen = 0.5;
         var lenDiag = (bondHalfLen+atomFracRad) * Math.sin(45 * Math.PI / 180.0);
         
@@ -52,5 +53,40 @@ AFRAME.registerComponent('shellbonds', {
                 el.removeChild(newEntity);
             });
         }
+
+        el.addEventListener('click', function () {
+            if (scene.querySelector('a-camera a-entity').is('delete')) {
+                var shellAtom = document.createElement('a-atom');
+                shellAtom.setAttribute('position', atomPos);
+                shellAtom.setAttribute('radius', atomRad);
+                shellAtom.setAttribute('opacity', '0.3');
+                shellAtom.setAttribute('class', 'shell-atom');
+                shellAtom.setAttribute('color', 'green');
+                shellAtom.setAttribute('visible', false);
+                shellAtom.setAttribute('aabb-collider', {objects: '.placedatom'});
+                shellAtom.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
+                shellAtom.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
+
+                scene.removeChild(el);
+                scene.appendChild(shellAtom);
+
+                shellAtom.addEventListener('click', function () {
+                    var atom = document.createElement('a-atom');
+                    atom.setAttribute('position', shellAtom.getAttribute('position'));
+                    atom.setAttribute('atomlabel', {text: 'C'});
+                    atom.setAttribute('color', 'gray');
+                    atom.setAttribute('class', 'placedatom');
+                    atom.setAttribute('radius', atomRad);
+                    atom.setAttribute('shellbonds', '');
+
+                    scene.removeChild(shellAtom);
+                    scene.appendChild(atom);
+                });
+
+                shellAtom.addEventListener('hitclosest', function () {
+                    scene.removeChild(shellAtom);
+                });
+            }
+        });
     }
 });
