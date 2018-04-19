@@ -13,7 +13,7 @@ AFRAME.registerComponent('shellatoms', {
 
         var atomRad = 0.3;
         var atomPosX = [bondPos.x, bondPos.x];
-        var atomPosY = [bondPos.y + bondHalfLen + atomRad * 3 / 4, bondPos.y - bondHalfLen - atomRad * 3 / 4];
+        var atomPosY = [bondPos.y + bondHalfLen + atomRad / 2, bondPos.y - bondHalfLen - atomRad / 2];
         var atomPosZ = [bondPos.z, bondPos.z];
 
         for (var i = 0; i < atomPosX.length; i++) {
@@ -32,7 +32,7 @@ AFRAME.registerComponent('shellatoms', {
             newEntity.addEventListener('click', function () {
                 var atom = document.createElement('a-atom');
                 atom.setAttribute('position', newEntity.getAttribute('position'));
-                atom.setAttribute('label', {text: 'C'});
+                atom.setAttribute('atomlabel', {text: 'C'});
                 atom.setAttribute('color', 'gray');
                 atom.setAttribute('class', 'placedatom');
                 atom.setAttribute('radius', atomRad);

@@ -1,4 +1,4 @@
-AFRAME.registerComponent('label', {
+AFRAME.registerComponent('atomlabel', {
     schema: {
         text: {type: 'string', default: 'C'}
     },

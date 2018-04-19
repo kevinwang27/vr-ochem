@@ -4,7 +4,8 @@
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/aframe-aabb-collider-component/dist/aframe-aabb-collider-component.min.js"></script>
-    <script src="./components/label.js"></script>
+    <script src="./components/atomlabel.js"></script>
+    <script src="./components/menulabel.js"></script>
     <script src="./components/shellbonds.js"></script>
     <script src="./components/shellatoms.js"></script>
   </head>
@@ -25,7 +26,7 @@
 
         AFRAME.registerPrimitive('a-bond', {
             defaultComponents: {
-                geometry: {primitive: 'cylinder', radius: '0.08', height: '1'},
+                geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
                 material: {color: ''}
             },
 
@@ -38,7 +39,8 @@
 
     <a-scene>
         <a-bond shellatoms class="placedbond" rotation="0 0 0" position="0 0 -3" color="gray"></a-bond>
-        <a-atom shellbonds class="placedatom" position="-3 0 -2" color="gray" label="text: C"></a-atom>
+        <a-atom shellbonds class="placedatom" position="-3 0 -2" color="gray" atomlabel="text: C"></a-atom>
+        <a-box id="menu" position="3 0 -3" color="#A10F6F" depth="0.1" width="3" height="3" menulabel="text: Menu"></a-box>
 
         <a-camera>
             <a-entity cursor 
