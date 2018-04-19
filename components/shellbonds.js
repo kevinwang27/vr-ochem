@@ -16,10 +16,12 @@ AFRAME.registerComponent('shellbonds', {
             // front back
             new THREE.Vector3(atomPos.x, atomPos.y, atomPos.z+bondHalfLen+atomFracRad), new THREE.Vector3(atomPos.x, atomPos.y, atomPos.z-bondHalfLen-atomFracRad),
             // top-right bottom-left
-            new THREE.Vector3(atomPos.x+lenDiag, atomPos.y+lenDiag, atomPos.z), new THREE.Vector3(atomPos.x-lenDiag, atomPos.y-lenDiag, atomPos.z)
+            new THREE.Vector3(atomPos.x+lenDiag, atomPos.y+lenDiag, atomPos.z), new THREE.Vector3(atomPos.x-lenDiag, atomPos.y-lenDiag, atomPos.z),
+            // top-left bottom-left
+            new THREE.Vector3(atomPos.x-lenDiag, atomPos.y+lenDiag, atomPos.z), new THREE.Vector3(atomPos.x+lenDiag, atomPos.y-lenDiag, atomPos.z)
             ];
         
-        var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90},{x:0,y:0,z:-45},{x:0,y:0,z:-45}];
+        var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90},{x:0,y:0,z:-45},{x:0,y:0,z:-45},{x:0,y:0,z:45},{x:0,y:0,z:45}];
 
         for (var i = 0; i < bondPosArr.length; i++) {
             let newEntity = document.createElement('a-bond');
