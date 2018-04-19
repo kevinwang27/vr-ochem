@@ -40,13 +40,13 @@
     <a-scene>
         <a-bond shellatoms class="placedbond" rotation="0 0 0" position="0 0 -3" color="gray"></a-bond>
         <a-atom shellbonds class="placedatom" position="-3 0 -2" color="gray" atomlabel="text: C"></a-atom>
-        <a-box id="menu" position="3 0 -3.5" color="#978dff" depth="0.1" width="2" height="3">
-            <a-text id="add" value="Add" align="center" geometry="primitive: plane; height: 0.5" position="0 1 0.1"
-                color="#000" material="color: #ff918d"></a-text>
-            <a-text id="delete" value="Delete" align="center" geometry="primitive: plane; height: 0.5" position="0 0 0.1"
-                color="#000" material="color: #ff918d"></a-text>
-            <a-text id="done" value="Done" align="center" geometry="primitive: plane; height: 0.5" position="0 -1 0.1"
-                color="#000" material="color: #ff918d"></a-text>
+        <a-box id="menu" position="3 0 -3.5" color="#978dff" depth="0.1" width="2" height="2.5">
+            <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5" 
+                position="0 0.75 0.1" color="#000" material="color: #ff918d"></a-text>
+            <a-text id="delete" class="editbutton" value="Delete" align="center" geometry="primitive: plane; height: 0.5" 
+                position="0 0 0.1" color="#000" material="color: #ff918d"></a-text>
+            <a-text id="done" class="donebutton" value="Done" align="center" geometry="primitive: plane; height: 0.5" 
+                position="0 -0.75 0.1" color="#000" material="color: #ff918d"></a-text>
         </a-box>
 
         <a-camera>
@@ -54,8 +54,23 @@
                 geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
                 position="0 0 -1"
                 material="color: black"
-                raycaster="objects: .shell-atom, .shell-bond"></a-entity>
+                raycaster="objects: .menubutton"></a-entity>
         </a-camera>
     </a-scene>
+
+    <script>
+        // two separate menus, toggle raycaster to detect either edit or done button and toggle visibility of each menu
+        var cursor = document.querySelector('a-scene a-camera a-entity');
+
+        document.querySelector('#add').addEventListener('click', function () {
+            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.shell-atom', '.shell-bond']});
+        });
+        document.querySelector('#delete').addEventListener('click', function () {
+            //cursor.setAttribute('raycaster', {objects: ['.editbutton', '.placedatom', '.placedbond']});
+        });
+        document.querySelector('#done').addEventListener('click', function () {
+            cursor.setAttribute('raycaster', {objects: '.donebutton'});
+        });
+    </script>
   </body>
 </html>
