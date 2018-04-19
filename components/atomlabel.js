@@ -10,6 +10,7 @@ AFRAME.registerComponent('atomlabel', {
         var textEntity = document.createElement('a-text');
         textEntity.setAttribute('id', 'text');
         textEntity.setAttribute('value', data.text);
+        textEntity.setAttribute('align', 'center');
         textEntity.setAttribute('position', '0 0 ' + el.getAttribute('geometry').radius);
         textEntity.setAttribute('color', '#000');
         el.appendChild(textEntity);
