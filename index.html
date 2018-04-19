@@ -26,7 +26,7 @@
 
         AFRAME.registerPrimitive('a-bond', {
             defaultComponents: {
-                geometry: {primitive: 'cylinder', radius: '0.1', height: '1'},
+                geometry: {primitive: 'cylinder', radius: '0.08', height: '1'},
                 material: {color: ''}
             },
 
@@ -38,8 +38,8 @@
     </script>
 
     <a-scene>
-        <a-bond shellatoms class="placedbond" rotation="0 0 0" position="0 0 -3" color="gray"></a-bond>
         <a-atom shellbonds class="placedatom" position="-3 0 -2" color="gray" atomlabel="text: C"></a-atom>
+
         <a-box id="editmenu" position="3 0 -3.5" color="#978dff" depth="0.1" width="2" height="2">
             <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5" 
                 position="0 0.5 0.1" color="#000" material="color: #ff918d"></a-text>
@@ -74,11 +74,13 @@
         document.querySelector('#delete').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
-            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond']});
+            cursor.addState('delete');
+            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond']});   
         });
         document.querySelector('#done').addEventListener('click', function () {
             editmenu.setAttribute('visible', true);
             donemenu.setAttribute('visible', false);
+            cursor.removeState('delete');
             cursor.setAttribute('raycaster', {objects: '.editbutton'});
         });
     </script>

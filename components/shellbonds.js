@@ -4,7 +4,7 @@ AFRAME.registerComponent('shellbonds', {
         var scene = document.querySelector('a-scene');
 
         var atomPos = el.getAttribute('position');
-        var atomFracRad = el.getAttribute('geometry').radius / 2;
+        var atomFracRad = el.getAttribute('geometry').radius * 3 / 4;
         var bondHalfLen = 0.5;
         var lenDiag = (bondHalfLen+atomFracRad) * Math.sin(45 * Math.PI / 180.0);
         
