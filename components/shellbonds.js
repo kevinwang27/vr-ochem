@@ -10,15 +10,15 @@ AFRAME.registerComponent('shellbonds', {
         
         var bondPosArr = [
             // top bottom
-            new THREE.Vector3(atomPos.x, atomPos.y+bondHalfLen+atomFracRad, atomPos.z), new THREE.Vector3(atomPos.x, atomPos.y-bondHalfLen-atomFracRad, atomPos.z),
+            new THREE.Vector3(0, 0+bondHalfLen+atomFracRad, 0), new THREE.Vector3(0, 0-bondHalfLen-atomFracRad, 0),
             // right left
-            new THREE.Vector3(atomPos.x+bondHalfLen+atomFracRad, atomPos.y, atomPos.z), new THREE.Vector3(atomPos.x-bondHalfLen-atomFracRad, atomPos.y, atomPos.z),
+            new THREE.Vector3(0+bondHalfLen+atomFracRad, 0, 0), new THREE.Vector3(0-bondHalfLen-atomFracRad, 0, 0),
             // front back
-            new THREE.Vector3(atomPos.x, atomPos.y, atomPos.z+bondHalfLen+atomFracRad), new THREE.Vector3(atomPos.x, atomPos.y, atomPos.z-bondHalfLen-atomFracRad),
+            new THREE.Vector3(0, 0, 0+bondHalfLen+atomFracRad), new THREE.Vector3(0, 0, 0-bondHalfLen-atomFracRad),
             // top-right bottom-left
-            new THREE.Vector3(atomPos.x+lenDiag, atomPos.y+lenDiag, atomPos.z), new THREE.Vector3(atomPos.x-lenDiag, atomPos.y-lenDiag, atomPos.z),
+            new THREE.Vector3(0+lenDiag, 0+lenDiag, 0), new THREE.Vector3(0-lenDiag, 0-lenDiag, 0),
             // top-left bottom-left
-            new THREE.Vector3(atomPos.x-lenDiag, atomPos.y+lenDiag, atomPos.z), new THREE.Vector3(atomPos.x+lenDiag, atomPos.y-lenDiag, atomPos.z)
+            new THREE.Vector3(0-lenDiag, 0+lenDiag, 0), new THREE.Vector3(0+lenDiag, 0-lenDiag, 0)
             ];
         
         var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90},{x:0,y:0,z:-45},{x:0,y:0,z:-45},{x:0,y:0,z:45},{x:0,y:0,z:45}];
@@ -34,22 +34,22 @@ AFRAME.registerComponent('shellbonds', {
             newEntity.setAttribute('aabb-collider', {objects: '.placedbond'});
             newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
             newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
-            scene.appendChild(newEntity);
+            el.appendChild(newEntity);
 
             newEntity.addEventListener('click', function () {
                 var bond = document.createElement('a-bond');
-                bond.setAttribute('position', newEntity.getAttribute('position'));
+                bond.setAttribute('position', newEntity.getAttribute('position').add(atomPos));
                 bond.setAttribute('rotation', newEntity.getAttribute('rotation'));
                 bond.setAttribute('color', 'gray');
                 bond.setAttribute('class', 'placedbond');
                 bond.setAttribute('shellatoms', '');
 
-                scene.removeChild(newEntity);
+                el.removeChild(newEntity);
                 scene.appendChild(bond);
             });
 
             newEntity.addEventListener('hitclosest', function () {
-                scene.removeChild(newEntity);
+                el.removeChild(newEntity);
             });
         }
     }

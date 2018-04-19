@@ -12,9 +12,9 @@ AFRAME.registerComponent('shellatoms', {
         }
 
         var atomRad = 0.3;
-        var atomPosX = [bondPos.x, bondPos.x];
-        var atomPosY = [bondPos.y + bondHalfLen + atomRad / 2, bondPos.y - bondHalfLen - atomRad / 2];
-        var atomPosZ = [bondPos.z, bondPos.z];
+        var atomPosX = [0,0];
+        var atomPosY = [0+bondHalfLen+atomRad/2,0-bondHalfLen-atomRad/2];
+        var atomPosZ = [0,0];
 
         for (var i = 0; i < atomPosX.length; i++) {
             let newEntity = document.createElement('a-atom');
@@ -27,23 +27,23 @@ AFRAME.registerComponent('shellatoms', {
             newEntity.setAttribute('aabb-collider', {objects: '.placedatom'});
             newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
             newEntity.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
-            scene.appendChild(newEntity);
+            el.appendChild(newEntity);
 
             newEntity.addEventListener('click', function () {
                 var atom = document.createElement('a-atom');
-                atom.setAttribute('position', newEntity.getAttribute('position'));
+                atom.setAttribute('position', newEntity.getAttribute('position').add(bondPos));
                 atom.setAttribute('atomlabel', {text: 'C'});
                 atom.setAttribute('color', 'gray');
                 atom.setAttribute('class', 'placedatom');
                 atom.setAttribute('radius', atomRad);
                 atom.setAttribute('shellbonds', '');
 
-                scene.removeChild(newEntity);
+                el.removeChild(newEntity);
                 scene.appendChild(atom);
             });
 
             newEntity.addEventListener('hitclosest', function () {
-                scene.removeChild(newEntity);
+                el.removeChild(newEntity);
             });
         }
     }
