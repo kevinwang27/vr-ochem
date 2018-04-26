@@ -7,14 +7,16 @@ AFRAME.registerComponent('shellatoms', {
         var bondRot = el.getAttribute('rotation');
         var bondHalfLen = el.getAttribute('geometry').height / 2;
 
+        var atomRad = 0.3;
+        var dist = bondHalfLen+atomRad*3/4;
+
         function toRad(deg) {
             return deg * Math.PI / 180.0;
         }
 
-        var atomRad = 0.3;
-        var atomPosX = [0,0];
-        var atomPosY = [0+bondHalfLen+atomRad*3/4,0-bondHalfLen-atomRad*3/4];
-        var atomPosZ = [0,0];
+        var atomPosX = [dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y)), 0 - dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))];
+        var atomPosY = [dist * Math.cos(toRad(bondRot.z)), 0 - dist * Math.cos(toRad(bondRot.z))];
+        var atomPosZ = [dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y)), 0 - dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y))];
 
         for (var i = 0; i < atomPosX.length; i++) {
             let newEntity = document.createElement('a-atom');
