@@ -1,4 +1,4 @@
-AFRAME.registerComponent('shellatoms', {
+ AFRAME.registerComponent('shellatoms', {
     init: function () {
         var el = this.el;
         var scene = document.querySelector('a-scene');
