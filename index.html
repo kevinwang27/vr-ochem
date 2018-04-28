@@ -43,23 +43,50 @@
 
         <a-box id="editmenu" position="3 1 -3.5" color="#978dff" depth="0.1" width="2" height="2">
             <a-box position="0 0.5 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
-                <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5" 
+                <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
             </a-box>
             <a-box position="0 -0.5 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
-                <a-text id="delete" class="editbutton" value="Delete" align="center" geometry="primitive: plane; height: 0.5" 
+                <a-text id="delete" class="editbutton" value="Delete" align="center" geometry="primitive: plane; height: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
             </a-box>
         </a-box>
+
+        <a-box id="atommenu" position="3 4 -3.5" color="#978dff" depth="0.1" width="3" height="2" visible="false">
+            <a-box position="-1 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Carbon" class="addbutton" value="C" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+            <a-box position="0 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Nitrogen" class="addbutton" value="N" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+            <a-box position="1 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Oxygen" class="addbutton" value="O" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+            <a-box position="-1 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Hydrogen" class="addbutton" value="H" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+            <a-box position="0 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Chlorine" class="addbutton" value="Cl" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+            <a-box position="1 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
+                <a-text id="Bromine" class="addbutton" value="Br" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+                </a-box>
+        </a-box>
         <a-box id="donemenu" position="3 1 -3.5" color="#978dff" depth="0.1" width="2" height="1" visible="false">
             <a-box position="0 0 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.5">
-                <a-text id="done" class="donebutton" value="Done" align="center" geometry="primitive: plane; height: 0.4" 
+                <a-text id="done" class="donebutton" value="Done" align="center" geometry="primitive: plane; height: 0.4"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
             </a-box>
         </a-box>
 
         <a-camera position="0 1 0">
-            <a-entity cursor 
+            <a-entity cursor
                 geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
                 position="0 0 -1"
                 material="color: black"
@@ -75,13 +102,14 @@
         document.querySelector('#add').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
+            atommenu.setAttribute('visible', true);
             cursor.setAttribute('raycaster', {objects: ['.donebutton', '.shell-atom', '.shell-bond']});
         });
         document.querySelector('#delete').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
             cursor.addState('delete');
-            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond']});   
+            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond']});
         });
         document.querySelector('#done').addEventListener('click', function () {
             editmenu.setAttribute('visible', true);
