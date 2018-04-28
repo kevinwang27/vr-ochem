@@ -2,6 +2,7 @@
     init: function () {
         var el = this.el;
         var scene = document.querySelector('a-scene');
+        var cursor = scene.querySelector('a-camera a-entity');
 
         var bondPos = el.getAttribute('position');
         var bondRot = el.getAttribute('rotation');
@@ -35,7 +36,21 @@
                 var atom = document.createElement('a-atom');
                 console.log(newEntity.getAttribute('position'));
                 atom.setAttribute('position', newEntity.getAttribute('position').add(bondPos));
-                atom.setAttribute('atomlabel', {text: 'C'});
+                
+                if (cursor.is('carbon')) {
+                    atom.setAttribute('atomlabel', {text: 'C'});
+                } else if (cursor.is('nitrogen')) {
+                    atom.setAttribute('atomlabel', {text: 'N'});
+                } else if (cursor.is('oxygen')) {
+                    atom.setAttribute('atomlabel', {text: 'O'});
+                } else if (cursor.is('chlorine')) {
+                    atom.setAttribute('atomlabel', {text: 'Cl'});
+                } else if (cursor.is('bromine')) {
+                    atom.setAttribute('atomlabel', {text: 'Br'});
+                } else if (cursor.is('hydrogen')) {
+                    atom.setAttribute('atomlabel', {text: 'H'});
+                }
+                
                 atom.setAttribute('color', 'gray');
                 atom.setAttribute('class', 'placedatom');
                 atom.setAttribute('radius', atomRad);

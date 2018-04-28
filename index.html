@@ -54,27 +54,27 @@
 
         <a-box id="atommenu" position="2 3 -3.5" color="#978dff" depth="0.1" width="3" height="2" visible="false">
             <a-box position="-1 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Carbon" class="atombutton" value="C" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="carbon" class="atombutton" value="C" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
             <a-box position="0 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Nitrogen" class="atombutton" value="N" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="nitrogen" class="atombutton" value="N" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
             <a-box position="1 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Oxygen" class="atombutton" value="O" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="oxygen" class="atombutton" value="O" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
             <a-box position="-1 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Hydrogen" class="atombutton" value="H" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="hydrogen" class="atombutton" value="H" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
             <a-box position="0 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Chlorine" class="atombutton" value="Cl" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="chlorine" class="atombutton" value="Cl" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
             <a-box position="1 -0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
-                <a-text id="Bromine" class="atombutton" value="Br" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
+                <a-text id="bromine" class="atombutton" value="Br" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
                 </a-box>
         </a-box>
@@ -99,12 +99,42 @@
         var editmenu = document.querySelector('a-scene #editmenu');
         var atommenu = document.querySelector('a-scene #atommenu');
         var donemenu = document.querySelector('a-scene #donemenu');
+        var carbon = document.querySelector('#carbon');
+        var nitrogen = document.querySelector('#nitrogen');
+        var oxygen = document.querySelector('#oxygen');
+        var hydrogen = document.querySelector('#hydrogen');
+        var chlorine = document.querySelector('#chlorine');
+        var bromine = document.querySelector('#bromine');
 
         document.querySelector('#add').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
             atommenu.setAttribute('visible', true);
             cursor.setAttribute('raycaster', {objects: ['.donebutton', '.atombutton', '.shell-atom', '.shell-bond']});
+        });
+        carbon.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('carbon');
+        });
+        nitrogen.addEventListener('click', function () {
+            nitrogen.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('nitrogen');
+        });
+        oxygen.addEventListener('click', function () {
+            oxygen.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('oxygen');
+        });
+        hydrogen.addEventListener('click', function () {
+            hydrogen.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('hydrogen');
+        });
+        chlorine.addEventListener('click', function () {
+            chlorine.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('chlorine');
+        });
+        bromine.addEventListener('click', function () {
+            bromine.setAttribute('material', 'color', '#ffd700');
+            cursor.addState('bromine');
         });
         document.querySelector('#delete').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);

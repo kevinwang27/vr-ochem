@@ -2,6 +2,7 @@ AFRAME.registerComponent('shellbonds', {
     init: function () {
         var el = this.el;
         var scene = document.querySelector('a-scene');
+        var cursor = scene.querySelector('a-camera a-entity');
 
         var atomPos = el.getAttribute('position');
         var atomRad = el.getAttribute('geometry').radius;
@@ -18,7 +19,7 @@ AFRAME.registerComponent('shellbonds', {
             ];
         
         var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90}];
-        
+
         for (var i = 0; i < bondPosArr.length; i++) {
             let newEntity = document.createElement('a-bond');
             newEntity.setAttribute('position', bondPosArr[i]);
@@ -68,7 +69,19 @@ AFRAME.registerComponent('shellbonds', {
                 shellAtom.addEventListener('click', function () {
                     var atom = document.createElement('a-atom');
                     atom.setAttribute('position', shellAtom.getAttribute('position'));
-                    atom.setAttribute('atomlabel', {text: 'C'});
+                    if (cursor.is('carbon')) {
+                        atom.setAttribute('atomlabel', {text: 'C'});
+                    } else if (cursor.is('nitrogen')) {
+                        atom.setAttribute('atomlabel', {text: 'N'});
+                    } else if (cursor.is('oxygen')) {
+                        atom.setAttribute('atomlabel', {text: 'O'});
+                    } else if (cursor.is('chlorine')) {
+                        atom.setAttribute('atomlabel', {text: 'Cl'});
+                    } else if (cursor.is('bromine')) {
+                        atom.setAttribute('atomlabel', {text: 'Br'});
+                    } else if (cursor.is('hydrogen')) {
+                        atom.setAttribute('atomlabel', {text: 'H'});
+                    }
                     atom.setAttribute('color', 'gray');
                     atom.setAttribute('class', 'placedatom');
                     atom.setAttribute('radius', atomRad);
