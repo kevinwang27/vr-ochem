@@ -14,9 +14,9 @@ AFRAME.registerComponent('shellatoms', {
             return deg * Math.PI / 180.0;
         }
 
-        var atomPosX = [dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y)), 0 - dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))];
-        var atomPosY = [dist * Math.cos(toRad(bondRot.z)), 0 - dist * Math.cos(toRad(bondRot.z))];
-        var atomPosZ = [dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y)), 0 - dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y))];
+        var atomPosX = [(dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))), (0 - dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y)))];
+        var atomPosY = [(dist * Math.cos(toRad(bondRot.z))), (0 - dist * Math.cos(toRad(bondRot.z)))];
+        var atomPosZ = [(dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y))), (0 - dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y)))];
 
         for (var i = 0; i < atomPosX.length; i++) {
             let newEntity = document.createElement('a-atom');
