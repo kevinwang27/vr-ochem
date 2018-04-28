@@ -33,6 +33,7 @@
 
             newEntity.addEventListener('click', function () {
                 var atom = document.createElement('a-atom');
+                console.log(newEntity.getAttribute('position'));
                 atom.setAttribute('position', newEntity.getAttribute('position').add(bondPos));
                 atom.setAttribute('atomlabel', {text: 'C'});
                 atom.setAttribute('color', 'gray');

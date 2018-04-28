@@ -18,7 +18,7 @@ AFRAME.registerComponent('shellbonds', {
             ];
         
         var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90}];
-
+        
         for (var i = 0; i < bondPosArr.length; i++) {
             let newEntity = document.createElement('a-bond');
             newEntity.setAttribute('position', bondPosArr[i]);
