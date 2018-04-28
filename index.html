@@ -114,26 +114,86 @@
         });
         carbon.addEventListener('click', function () {
             carbon.setAttribute('material', 'color', '#ffd700');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
+            oxygen.setAttribute('material', 'color', '#ff918d');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
+            chlorine.setAttribute('material', 'color', '#ff918d');
+            bromine.setAttribute('material', 'color', '#ff918d');
             cursor.addState('carbon');
+            cursor.removeState('nitrogen');
+            cursor.removeState('oxygen');
+            cursor.removeState('hydrogen');
+            cursor.removeState('chlorine');
+            cursor.removeState('bromine');
         });
         nitrogen.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ff918d');
             nitrogen.setAttribute('material', 'color', '#ffd700');
+            oxygen.setAttribute('material', 'color', '#ff918d');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
+            chlorine.setAttribute('material', 'color', '#ff918d');
+            bromine.setAttribute('material', 'color', '#ff918d');
+            cursor.removeState('carbon');
             cursor.addState('nitrogen');
+            cursor.removeState('oxygen');
+            cursor.removeState('hydrogen');
+            cursor.removeState('chlorine');
+            cursor.removeState('bromine');
         });
         oxygen.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ff918d');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
             oxygen.setAttribute('material', 'color', '#ffd700');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
+            chlorine.setAttribute('material', 'color', '#ff918d');
+            bromine.setAttribute('material', 'color', '#ff918d');
+            cursor.removeState('carbon');
+            cursor.removeState('nitrogen');
             cursor.addState('oxygen');
+            cursor.removeState('hydrogen');
+            cursor.removeState('chlorine');
+            cursor.removeState('bromine');
         });
         hydrogen.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ff918d');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
+            oxygen.setAttribute('material', 'color', '#ff918d');
             hydrogen.setAttribute('material', 'color', '#ffd700');
+            chlorine.setAttribute('material', 'color', '#ff918d');
+            bromine.setAttribute('material', 'color', '#ff918d');
+            cursor.removeState('carbon');
+            cursor.removeState('nitrogen');
+            cursor.removeState('oxygen');
             cursor.addState('hydrogen');
+            cursor.removeState('chlorine');
+            cursor.removeState('bromine');
         });
         chlorine.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ff918d');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
+            oxygen.setAttribute('material', 'color', '#ff918d');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
             chlorine.setAttribute('material', 'color', '#ffd700');
+            bromine.setAttribute('material', 'color', '#ff918d');
+            cursor.removeState('carbon');
+            cursor.removeState('nitrogen');
+            cursor.removeState('oxygen');
+            cursor.removeState('hydrogen');
             cursor.addState('chlorine');
+            cursor.removeState('bromine');
         });
         bromine.addEventListener('click', function () {
+            carbon.setAttribute('material', 'color', '#ff918d');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
+            oxygen.setAttribute('material', 'color', '#ff918d');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
+            chlorine.setAttribute('material', 'color', '#ff918d');
             bromine.setAttribute('material', 'color', '#ffd700');
+            cursor.removeState('carbon');
+            cursor.removeState('nitrogen');
+            cursor.removeState('oxygen');
+            cursor.removeState('hydrogen');
+            cursor.removeState('chlorine');
             cursor.addState('bromine');
         });
         document.querySelector('#delete').addEventListener('click', function () {
