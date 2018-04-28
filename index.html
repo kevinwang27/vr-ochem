@@ -110,6 +110,18 @@
             editmenu.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
             atommenu.setAttribute('visible', true);
+            carbon.setAttribute('material', 'color', '#ffd700');
+            nitrogen.setAttribute('material', 'color', '#ff918d');
+            oxygen.setAttribute('material', 'color', '#ff918d');
+            hydrogen.setAttribute('material', 'color', '#ff918d');
+            chlorine.setAttribute('material', 'color', '#ff918d');
+            bromine.setAttribute('material', 'color', '#ff918d');
+            cursor.addState('carbon');
+            cursor.removeState('nitrogen');
+            cursor.removeState('oxygen');
+            cursor.removeState('hydrogen');
+            cursor.removeState('chlorine');
+            cursor.removeState('bromine');
             cursor.setAttribute('raycaster', {objects: ['.donebutton', '.atombutton', '.shell-atom', '.shell-bond']});
         });
         carbon.addEventListener('click', function () {
