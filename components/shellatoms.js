@@ -31,7 +31,7 @@
             newEntity.setAttribute('radius', atomRad);
             newEntity.setAttribute('opacity', '0.3');
             newEntity.setAttribute('class', 'shell-atom');
-            newEntity.setAttribute('color', 'green');
+            newEntity.setAttribute('color', '#C6E0ED');
             newEntity.setAttribute('visible', false);
             newEntity.setAttribute('aabb-collider', {objects: '.placedatom'});
             newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
@@ -60,7 +60,7 @@
                     atom.setAttribute('atomlabel', {text: 'H'});
                 }
 
-                atom.setAttribute('color', 'gray');
+                atom.setAttribute('color', '#DCDCDC');
                 atom.setAttribute('class', 'placedatom');
                 atom.setAttribute('radius', atomRad);
                 atom.setAttribute('shellbonds', '');
@@ -81,12 +81,12 @@
                 shellBond.setAttribute('rotation', bondRot);
                 shellBond.setAttribute('opacity', '0.3');
                 shellBond.setAttribute('class', 'shell-bond');
-                shellBond.setAttribute('color', 'green');
+                shellBond.setAttribute('color', '#C6E0ED');
                 shellBond.setAttribute('visible', false);
                 shellBond.setAttribute('aabb-collider', {objects: '.placedbond'});
                 shellBond.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
                 shellBond.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
-                
+
                 scene.removeChild(el);
                 scene.appendChild(shellBond);
 

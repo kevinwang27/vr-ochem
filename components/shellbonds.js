@@ -8,7 +8,7 @@ AFRAME.registerComponent('shellbonds', {
         var atomRad = el.getAttribute('geometry').radius;
         var atomFracRad = atomRad * 3 / 4;
         var bondHalfLen = 0.5;
-        
+
         var bondPosArr = [
             // top bottom
             new THREE.Vector3(0, 0+bondHalfLen+atomFracRad, 0), new THREE.Vector3(0, 0-bondHalfLen-atomFracRad, 0),
@@ -17,7 +17,7 @@ AFRAME.registerComponent('shellbonds', {
             // front back
             new THREE.Vector3(0, 0, 0+bondHalfLen+atomFracRad), new THREE.Vector3(0, 0, 0-bondHalfLen-atomFracRad)
             ];
-        
+
         var bondRotArr = [{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:90},{x:0,y:0,z:90},{x:0,y:90,z:90},{x:0,y:90,z:90}];
 
         for (var i = 0; i < bondPosArr.length; i++) {
@@ -26,7 +26,7 @@ AFRAME.registerComponent('shellbonds', {
             newEntity.setAttribute('rotation', bondRotArr[i]);
             newEntity.setAttribute('opacity', '0.3');
             newEntity.setAttribute('class', 'shell-bond');
-            newEntity.setAttribute('color', 'green');
+            newEntity.setAttribute('color', '#C6E0ED');
             newEntity.setAttribute('visible', false);
             newEntity.setAttribute('aabb-collider', {objects: '.placedbond'});
             newEntity.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
@@ -37,7 +37,7 @@ AFRAME.registerComponent('shellbonds', {
                 var bond = document.createElement('a-bond');
                 bond.setAttribute('position', newEntity.getAttribute('position').add(atomPos));
                 bond.setAttribute('rotation', newEntity.getAttribute('rotation'));
-                bond.setAttribute('color', 'gray');
+                bond.setAttribute('color', '#DCDCDC');
                 bond.setAttribute('class', 'placedbond');
                 bond.setAttribute('shellatoms', '');
 
@@ -57,7 +57,7 @@ AFRAME.registerComponent('shellbonds', {
                 shellAtom.setAttribute('radius', atomRad);
                 shellAtom.setAttribute('opacity', '0.3');
                 shellAtom.setAttribute('class', 'shell-atom');
-                shellAtom.setAttribute('color', 'green');
+                shellAtom.setAttribute('color', '#C6E0ED');
                 shellAtom.setAttribute('visible', false);
                 shellAtom.setAttribute('aabb-collider', {objects: '.placedatom'});
                 shellAtom.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
@@ -82,7 +82,7 @@ AFRAME.registerComponent('shellbonds', {
                     } else if (cursor.is('hydrogen')) {
                         atom.setAttribute('atomlabel', {text: 'H'});
                     }
-                    atom.setAttribute('color', 'gray');
+                    atom.setAttribute('color', '#DCDCDC');
                     atom.setAttribute('class', 'placedatom');
                     atom.setAttribute('radius', atomRad);
                     atom.setAttribute('shellbonds', '');
