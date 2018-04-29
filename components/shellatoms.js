@@ -15,13 +15,19 @@
             return deg * Math.PI / 180.0;
         }
 
-        var atomPosX = [(dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))), (0 - dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y)))];
-        var atomPosY = [(dist * Math.cos(toRad(bondRot.z))), (0 - dist * Math.cos(toRad(bondRot.z)))];
-        var atomPosZ = [(dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y))), (0 - dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y)))];
+        var atomPosArr = [
+            new THREE.Vector3((dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))), (dist * Math.cos(toRad(bondRot.z))), (dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y)))),
+            new THREE.Vector3((0 - dist * Math.sin(toRad(bondRot.z)) * Math.cos(toRad(bondRot.y))), (0 - dist * Math.cos(toRad(bondRot.z))), (0 - dist * Math.sin(toRad(bondRot.z)) * Math.sin(toRad(bondRot.y))))
+        ]
 
-        for (var i = 0; i < atomPosX.length; i++) {
+        var atomPosRelArr = [
+            new THREE.Vector3(0, dist, 0),
+            new THREE.Vector3(0, (0-dist), 0)
+        ]
+
+        for (let i = 0; i < atomPosArr.length; i++) {
             let newEntity = document.createElement('a-atom');
-            newEntity.setAttribute('position', {x: atomPosX[i], y: atomPosY[i], z: atomPosZ[i]});
+            newEntity.setAttribute('position', atomPosRelArr[i]);
             newEntity.setAttribute('radius', atomRad);
             newEntity.setAttribute('opacity', '0.3');
             newEntity.setAttribute('class', 'shell-atom');
@@ -34,9 +40,12 @@
 
             newEntity.addEventListener('click', function () {
                 var atom = document.createElement('a-atom');
-                console.log(newEntity.getAttribute('position'));
-                atom.setAttribute('position', newEntity.getAttribute('position').add(bondPos));
-                
+                if (bondRot.y === 0 && bondRot.z === 90) {
+                    atom.setAttribute('position', atomPosArr[1-i].add(bondPos));
+                } else {
+                    atom.setAttribute('position', atomPosArr[i].add(bondPos));
+                }
+
                 if (cursor.is('carbon')) {
                     atom.setAttribute('atomlabel', {text: 'C'});
                 } else if (cursor.is('nitrogen')) {
@@ -77,7 +86,7 @@
                 shellBond.setAttribute('aabb-collider', {objects: '.placedbond'});
                 shellBond.setAttribute('event-set__makevisible', {_event: 'mouseenter', visible: true});
                 shellBond.setAttribute('event-set__makeinvisible', {_event: 'mouseleave', visible: false});
-
+                
                 scene.removeChild(el);
                 scene.appendChild(shellBond);
 
