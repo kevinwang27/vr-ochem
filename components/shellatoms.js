@@ -36,7 +36,7 @@
                 var atom = document.createElement('a-atom');
                 console.log(newEntity.getAttribute('position'));
                 atom.setAttribute('position', newEntity.getAttribute('position').add(bondPos));
-                
+
                 if (cursor.is('carbon')) {
                     atom.setAttribute('atomlabel', {text: 'C'});
                 } else if (cursor.is('nitrogen')) {
@@ -50,7 +50,7 @@
                 } else if (cursor.is('hydrogen')) {
                     atom.setAttribute('atomlabel', {text: 'H'});
                 }
-                
+
                 atom.setAttribute('color', 'gray');
                 atom.setAttribute('class', 'placedatom');
                 atom.setAttribute('radius', atomRad);
@@ -85,7 +85,7 @@
                     var bond = document.createElement('a-bond');
                     bond.setAttribute('position', shellBond.getAttribute('position'));
                     bond.setAttribute('rotation', shellBond.getAttribute('rotation'));
-                    bond.setAttribute('color', 'gray');
+                    bond.setAttribute('color', '#DCDCDC');
                     bond.setAttribute('class', 'placedbond');
                     bond.setAttribute('shellatoms', '');
 
