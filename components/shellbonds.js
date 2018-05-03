@@ -51,7 +51,7 @@ AFRAME.registerComponent('shellbonds', {
         }
 
         el.addEventListener('click', function () {
-            if (scene.querySelector('a-camera a-entity').is('delete')) {
+            if (scene.querySelector('a-camera a-entity').is('delete') && el.getAttribute('id') !== "startatom") {
                 var shellAtom = document.createElement('a-atom');
                 shellAtom.setAttribute('position', atomPos);
                 shellAtom.setAttribute('radius', atomRad);
