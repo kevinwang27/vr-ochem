@@ -1,4 +1,4 @@
-<html>
+    <html>
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
@@ -135,7 +135,7 @@
             mainmenu.setAttribute('visible', false);
             editmenu.setAttribute('visible', true);
             startatom.setAttribute('visible', true);
-            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.donebutton', '.atombutton', '.shell-atom', '.shell-bond']});
+            cursor.setAttribute('raycaster', {objects: ['.editbutton']});
         });
         document.querySelector('#add').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
