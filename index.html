@@ -1,4 +1,4 @@
-    <html>
+<html>
   <head>
     <meta charset="UTF-8">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
@@ -38,16 +38,13 @@
         });
     </script>
 
-    <a-scene environment="preset: yavapai; lighting: point; dressing: none; groundColor: #1B1B1B; groundColor2: #344E5B;
+    <a-scene id="scene" environment="preset: yavapai; lighting: point; dressing: none; groundColor: #1B1B1B; groundColor2: #344E5B;
         skyType: color; skyColor: #1B1B1B">
 
         <a-box id="mainmenu" position="0 1 -3.5" color="#5F96B2" depth="0.1" width="5" height="4">
-            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18"
-                position="-0.03 1 0.06" color="#ff918d"></a-text>
-            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18"
-                position="0.03 1.04 0.06" color="#ffd700"></a-text>
-            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18"
-                position="0 1.02 0.06" color="#000"></a-text>
+            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18" position="-0.03 1 0.06" color="#ff918d"></a-text>
+            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18" position="0.03 1.04 0.06" color="#ffd700"></a-text>
+            <a-text id="title" class="beginbutton" value="VR OCHEM" align="center" width="18" position="0 1.02 0.06" color="#000"></a-text>
             <!-- <a-text id="title" class="beginbutton" value="BETA" align="center" width="3" position="2.3 -0.9 0.06"
                 color="#000"></a-text> -->
             <a-box position="0 0 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
@@ -55,9 +52,6 @@
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
             </a-box>
         </a-box>
-
-        <a-atom shellbonds id="startatom" class="placedatom" position="-1 1.75 -2.5" color="#DCDCDC" atomlabel="text: C"
-            visible="false"></a-atom>
 
         <a-box id="editmenu" position="2 1.5 -3.5" color="#5F96B2" depth="0.1" width="2" height="3" visible="false">
             <a-box position="0 0.8 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
@@ -119,11 +113,11 @@
 
     <script>
         var cursor = document.querySelector('a-scene a-camera a-entity');
+        var scene = document.querySelector('#scene');
         var editmenu = document.querySelector('a-scene #editmenu');
         var atommenu = document.querySelector('a-scene #atommenu');
         var donemenu = document.querySelector('a-scene #donemenu');
         var mainmenu = document.querySelector('a-scene #mainmenu');
-        var startatom = document.querySelector('a-scene #startatom');
         var carbon = document.querySelector('#carbon');
         var nitrogen = document.querySelector('#nitrogen');
         var oxygen = document.querySelector('#oxygen');
@@ -134,7 +128,16 @@
         document.querySelector('#begin').addEventListener('click', function () {
             mainmenu.setAttribute('visible', false);
             editmenu.setAttribute('visible', true);
-            startatom.setAttribute('visible', true);
+            //startatom.setAttribute('visible', true);
+
+            var atom = document.createElement('a-atom');
+            atom.setAttribute('position', "-1 1.75 -2.5");
+            atom.setAttribute('atomlabel', {text: 'C'});
+            atom.setAttribute('color', '#DCDCDC');
+            atom.setAttribute('class', 'placedatom');
+            atom.setAttribute('shellbonds', '');
+            scene.appendChild(atom);
+
             cursor.setAttribute('raycaster', {objects: ['.editbutton']});
         });
         document.querySelector('#add').addEventListener('click', function () {
@@ -253,12 +256,15 @@
             cursor.setAttribute('raycaster', {objects: '.editbutton'});
         });
         document.querySelector('#exit').addEventListener('click', function () {
+            var el = document.getElementById('scene').querySelectorAll('a-atom, a-bond');
+            for (var i = 0, len = el.length; i < len; i++) {
+                el[i].parentNode.removeChild(el[i]);
+            }
+
             mainmenu.setAttribute('visible', true);
             editmenu.setAttribute('visible', false);
-            startatom.setAttribute('visible', false);
             cursor.setAttribute('raycaster', {objects: '.beginbutton'});
         });
-
     </script>
   </body>
 </html>
