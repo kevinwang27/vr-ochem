@@ -102,6 +102,11 @@
             </a-box>
         </a-box>
 
+        <a-box id="promptbox" position="-2.5 3.5 -3.5" color="#5F96B2" depth="0.01" width="5" height="2" visible="false">
+            <a-text id="prompt" value="Methane" align="center" geometry="primitive: plane; height: 1.0"
+                position="0 0 0.01" color="#000" material="color: #5F96B2"></a-text>
+        </a-box>
+
         <a-camera position="0 1 0">
             <a-entity cursor
                 geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"
@@ -118,6 +123,8 @@
         var atommenu = document.querySelector('a-scene #atommenu');
         var donemenu = document.querySelector('a-scene #donemenu');
         var mainmenu = document.querySelector('a-scene #mainmenu');
+        var promptbox = document.querySelector('a-scene #promptbox');
+        var prompt = promptbox.querySelector('#prompt');
         var carbon = document.querySelector('#carbon');
         var nitrogen = document.querySelector('#nitrogen');
         var oxygen = document.querySelector('#oxygen');
@@ -128,7 +135,7 @@
         document.querySelector('#begin').addEventListener('click', function () {
             mainmenu.setAttribute('visible', false);
             editmenu.setAttribute('visible', true);
-            //startatom.setAttribute('visible', true);
+            promptbox.setAttribute('visible', true);
 
             var atom = document.createElement('a-atom');
             atom.setAttribute('position', "-1 1.75 -2.5");
