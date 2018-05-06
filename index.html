@@ -53,7 +53,7 @@
             </a-box>
         </a-box>
 
-        <a-box id="editmenu" position="2 1.5 -3.5" color="#5F96B2" depth="0.1" width="2" height="3" visible="false">
+        <a-box id="editmenu" position="-3 1.5 -3.5" color="#5F96B2" depth="0.1" width="2" height="3" visible="false">
             <a-box position="0 0.8 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
                 <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
@@ -68,7 +68,7 @@
             </a-box>
         </a-box>
 
-        <a-box id="atommenu" position="2 3 -3.5" color="#5F96B2" depth="0.1" width="3" height="2" visible="false">
+        <a-box id="atommenu" position="-3 3 -3.5" color="#5F96B2" depth="0.1" width="3" height="2" visible="false">
             <a-box position="-1 0.5 0.06" color="#ffd700" depth="0.01" width="0.6" height="0.6">
                 <a-text id="carbon" class="atombutton" value="C" align="center" geometry="primitive: plane; height: 0.5; width: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
@@ -95,16 +95,30 @@
                 </a-box>
         </a-box>
 
-        <a-box id="donemenu" position="2 1 -3.5" color="#5F96B2" depth="0.1" width="2" height="1" visible="false">
+        <a-box id="donemenu" position="-3 1 -3.5" color="#5F96B2" depth="0.1" width="2" height="1" visible="false">
             <a-box position="0 0 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.5">
                 <a-text id="done" class="donebutton" value="Done" align="center" geometry="primitive: plane; height: 0.4"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
             </a-box>
         </a-box>
 
-        <a-box id="promptbox" position="-2.5 3.5 -3.5" color="#5F96B2" depth="0.01" width="5" height="2" visible="false">
-            <a-text id="prompt" value="Methane" align="center" geometry="primitive: plane; height: 1.0"
+        <a-box id="promptbox" position="0 4 -5.5" color="#5F96B2" depth="0.01" width="5" height="2" visible="false">
+            <a-text id="prompt" value="" align="center" geometry="primitive: plane; height: 1.0" width="10"
                 position="0 0 0.01" color="#000" material="color: #5F96B2"></a-text>
+        </a-box>
+
+        <a-box id="askprompts" position="3 2.5 -3.5" color="#5F96B2" depth="0.01" width="1.5" height="0.9" visible="false">
+            <a-box position="0 0 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
+                <a-text id="forprompts" class="promptsbutton" value="Prompts" align="center" geometry="primitive: plane; height: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+            </a-box>
+        </a-box>
+
+        <a-box id="nextbox" position="3 1 -3.5" color="#5F96B2" depth="0.01" width="1.5" height="0.9" visible="false">
+            <a-box position="0 0 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
+                <a-text id="nextbutton" class="nextbutton" value="Next" align="center" geometry="primitive: plane; height: 0.5"
+                    position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
+            </a-box>
         </a-box>
 
         <a-camera position="0 1 0">
@@ -124,6 +138,8 @@
         var donemenu = document.querySelector('a-scene #donemenu');
         var mainmenu = document.querySelector('a-scene #mainmenu');
         var promptbox = document.querySelector('a-scene #promptbox');
+        var askprompts = document.querySelector('a-scene #askprompts');
+        var nextbox = document.querySelector('a-scene #nextbox');
         var prompt = promptbox.querySelector('#prompt');
         var carbon = document.querySelector('#carbon');
         var nitrogen = document.querySelector('#nitrogen');
@@ -132,23 +148,30 @@
         var chlorine = document.querySelector('#chlorine');
         var bromine = document.querySelector('#bromine');
 
+        var molecules;
+
         document.querySelector('#begin').addEventListener('click', function () {
             mainmenu.setAttribute('visible', false);
             editmenu.setAttribute('visible', true);
-            promptbox.setAttribute('visible', true);
+            askprompts.setAttribute('visible', true);
 
             var atom = document.createElement('a-atom');
-            atom.setAttribute('position', "-1 1.75 -2.5");
+            atom.setAttribute('position', "0 1.75 -2.5");
             atom.setAttribute('atomlabel', {text: 'C'});
             atom.setAttribute('color', '#DCDCDC');
             atom.setAttribute('class', 'placedatom');
             atom.setAttribute('shellbonds', '');
             scene.appendChild(atom);
 
-            cursor.setAttribute('raycaster', {objects: ['.editbutton']});
+            molecules = ['Methane', 'Methanol', '2-Chloropropane']
+
+            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.promptsbutton']});
         });
+
         document.querySelector('#add').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
+            nextbox.setAttribute('visible', false);
+            askprompts.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
             atommenu.setAttribute('visible', true);
             carbon.setAttribute('material', 'color', '#ffd700');
@@ -164,6 +187,34 @@
             cursor.removeState('chlorine');
             cursor.removeState('bromine');
             cursor.setAttribute('raycaster', {objects: ['.donebutton', '.atombutton', '.shell-atom', '.shell-bond']});
+        });
+        document.querySelector('#askprompts').addEventListener('click', function() {
+            askprompts.setAttribute('visible', false);
+            prompt.setAttribute('value', molecules.shift());
+            promptbox.setAttribute('visible', true);
+            nextbox.setAttribute('visible', true);
+            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.donebutton', '.nextbutton']});
+        });
+        document.querySelector('#nextbutton').addEventListener('click', function() {
+            var el = document.getElementById('scene').querySelectorAll('a-atom, a-bond');
+            for (var i = 0, len = el.length; i < len; i++) {
+                el[i].parentNode.removeChild(el[i]);
+            }
+
+            var atom = document.createElement('a-atom');
+            atom.setAttribute('position', "0 1.75 -2.5");
+            atom.setAttribute('atomlabel', {text: 'C'});
+            atom.setAttribute('color', '#DCDCDC');
+            atom.setAttribute('class', 'placedatom');
+            atom.setAttribute('shellbonds', '');
+            scene.appendChild(atom);
+
+            if (molecules.length > 0) {
+                prompt.setAttribute('value', molecules.shift());
+            } else {
+                prompt.setAttribute('value', 'Completed\nall prompts!');
+            }
+
         });
         carbon.addEventListener('click', function () {
             carbon.setAttribute('material', 'color', '#ffd700');
@@ -251,16 +302,18 @@
         });
         document.querySelector('#delete').addEventListener('click', function () {
             editmenu.setAttribute('visible', false);
+            nextbox.setAttribute('visible', false);
             donemenu.setAttribute('visible', true);
             cursor.addState('delete');
-            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond']});
+            cursor.setAttribute('raycaster', {objects: ['.donebutton', '.placedatom', '.placedbond', '.nextbutton']});
         });
         document.querySelector('#done').addEventListener('click', function () {
             editmenu.setAttribute('visible', true);
             donemenu.setAttribute('visible', false);
             atommenu.setAttribute('visible', false);
+            nextbox.setAttribute('visible', true);
             cursor.removeState('delete');
-            cursor.setAttribute('raycaster', {objects: '.editbutton'});
+            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.promptsbutton', '.nextbutton']});
         });
         document.querySelector('#exit').addEventListener('click', function () {
             var el = document.getElementById('scene').querySelectorAll('a-atom, a-bond');
@@ -269,6 +322,8 @@
             }
             mainmenu.setAttribute('visible', true);
             editmenu.setAttribute('visible', false);
+            promptbox.setAttribute('visible', false);
+            nextbox.setAttribute('visible', false);
             cursor.setAttribute('raycaster', {objects: '.beginbutton'});
         });
     </script>
