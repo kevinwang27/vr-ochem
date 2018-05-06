@@ -53,7 +53,7 @@
             </a-box>
         </a-box>
 
-        <a-box id="editmenu" position="-3 1.5 -3.5" color="#5F96B2" depth="0.1" width="2" height="3" visible="false">
+        <a-box id="editmenu" position="-3 1.5 -3.5" color="#5F96B2" depth="0.1" width="1.75" height="2.75" visible="false">
             <a-box position="0 0.8 0.06" color="#ffd700" depth="0.01" width="1.1" height="0.6">
                 <a-text id="add" class="editbutton" value="Add" align="center" geometry="primitive: plane; height: 0.5"
                     position="0 0 0.01" color="#000" material="color: #ff918d"></a-text>
@@ -163,7 +163,7 @@
             atom.setAttribute('shellbonds', '');
             scene.appendChild(atom);
 
-            molecules = ['Methane', 'Methanol', '2-Chloropropane']
+            molecules = ['Methane', 'Bromomethane', 'Methanol', '2-Chloropropane', '2-Bromoethan-1-ol']
 
             cursor.setAttribute('raycaster', {objects: ['.editbutton', '.promptsbutton']});
         });
