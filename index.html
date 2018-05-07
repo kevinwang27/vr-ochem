@@ -148,6 +148,7 @@
         var chlorine = document.querySelector('#chlorine');
         var bromine = document.querySelector('#bromine');
 
+        var promptshown = false;
         var molecules;
 
         document.querySelector('#begin').addEventListener('click', function () {
@@ -191,6 +192,7 @@
         document.querySelector('#askprompts').addEventListener('click', function() {
             askprompts.setAttribute('visible', false);
             prompt.setAttribute('value', molecules.shift());
+            promptshown = true;
             promptbox.setAttribute('visible', true);
             nextbox.setAttribute('visible', true);
             cursor.setAttribute('raycaster', {objects: ['.editbutton', '.donebutton', '.nextbutton']});
@@ -214,7 +216,6 @@
             } else {
                 prompt.setAttribute('value', 'Completed\nall prompts!');
             }
-
         });
         carbon.addEventListener('click', function () {
             carbon.setAttribute('material', 'color', '#ffd700');
@@ -311,9 +312,15 @@
             editmenu.setAttribute('visible', true);
             donemenu.setAttribute('visible', false);
             atommenu.setAttribute('visible', false);
-            nextbox.setAttribute('visible', true);
             cursor.removeState('delete');
-            cursor.setAttribute('raycaster', {objects: ['.editbutton', '.promptsbutton', '.nextbutton']});
+            if (promptshown) {
+                nextbox.setAttribute('visible', true);
+                cursor.setAttribute('raycaster', {objects: ['.editbutton', '.nextbutton']});
+            } else {
+                askprompts.setAttribute('visible', true);
+                promptshown = true;
+                cursor.setAttribute('raycaster', {objects: ['.editbutton', '.promptsbutton']});
+            }
         });
         document.querySelector('#exit').addEventListener('click', function () {
             var el = document.getElementById('scene').querySelectorAll('a-atom, a-bond');
@@ -324,6 +331,7 @@
             editmenu.setAttribute('visible', false);
             promptbox.setAttribute('visible', false);
             nextbox.setAttribute('visible', false);
+            promptshown = true;
             cursor.setAttribute('raycaster', {objects: '.beginbutton'});
         });
     </script>
